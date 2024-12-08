@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true"
+          name="C:/Users/santhosh.krishnan/Downloads/Capstone_Project_MakeMyTrip/src/test/java/com/makemytrip/testcases/Mmt_bus_booking.java">
+        <classes>
+            <class name="com.makemytrip.testcases.Mmt_bus_booking">
+                <methods>
+                    <include name="userLogin"/>
+                    <include name="filters"/>
+                    <include name="confirmation"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
