@@ -6,6 +6,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.makemytrip.pomfactory.PomObject;
 import com.makemytrip.pomfactory.TestCase;
+import com.makemytrip.testdata.ReadLogin;
 import com.makemytrip.utilities.ReportManager;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -57,14 +58,9 @@ public class Mmt_train_booking extends BaseClass{
        ExtentTest loginTrainTestCase = report.createTestCase("Logintrain","To verify the working of the login credentials");
        try {
            WebElement username = mmtPom.getElementByXpath("//input[@data-cy='userName'] ");
-           //username is visible .
-           //Assert eqal
-//            boolean a=username.isDisplayed();
-//            Assert.assertTrue(a,"Element is not displayed");
 
-           username.sendKeys("9384604089");
+           username.sendKeys("7550010537");
            test.Validatecontact("938460489",loginTrainTestCase,username,report);
-//            Assert.assertEquals(phoneno, "8072516504","Invalid Number");
            report.passTestCase(loginTrainTestCase,"Username Validated");
            WebElement continueBtn = mmtPom.getElementByXpath("//button[@data-cy='continueBtn']");
            test.testCase(continueBtn,loginTrainTestCase,"Continue Button is Present","Continue Button is not present",report);
@@ -86,15 +82,7 @@ public class Mmt_train_booking extends BaseClass{
    }
 
 
-//    @Test(priority = 2)
-//    public void Search_Train()
-//    {
-//        ExtentTest TrainSearchTestCase = report.createTestCase("TrainSearch","To verify the search of train is working");
-//        WebElement Train=mmtPom.getElementByXpath("(//span[@data-cy='item-wrapper'])[5]");
-//        Train.click();
-//        WebElement Search= mmtPom.getElementByXpath("//a[@data-cy='submit']");
-//        Search.click();
-//    }
+
 
 
     @Test(priority = 2)
@@ -112,12 +100,7 @@ public class Mmt_train_booking extends BaseClass{
             test.testCase(searchButton, trainSearchTest, "Search button is present", "Search button is not present",report);
             test.testCaseClick(searchButton, trainSearchTest, "Search button clicked successfully", "Failed to click the Search button",report);
 
-//            //Verify filters
-//            WebElement AcTrainFilter= mmtPom.getElementByXpath("/html/body/div/div[2]/main/div[3]/div[1]/div[1]/div[1]/div[2]/ul/li[1]/label/div");
-//            AcTrainFilter.click();
-//
-//            WebElement AvailabilityFilter= mmtPom.getElementByXpath("/html/body/div/div[2]/main/div[3]/div[1]/div[1]/div[2]/div[2]/ul/li[1]/label/div");
-//            AvailabilityFilter.click();
+
 
         } catch (Exception e) {
             trainSearchTest.log(Status.FAIL, "An exception occurred: " + e.getMessage());
@@ -126,18 +109,6 @@ public class Mmt_train_booking extends BaseClass{
     }
 
 
-
-//    @Test(priority = 3)
-//    public void Trainfilters()
-//    {
-//        ExtentTest TrainfilterTestCase = report.createTestCase("Trainfilter","To verify the filter of train is working");
-//        //Verify filters
-//        WebElement AcTrainFilter= mmtPom.getElementByXpath("/html/body/div/div[2]/main/div[3]/div[1]/div[1]/div[1]/div[2]/ul/li[1]/label/div");
-//        AcTrainFilter.click();
-//
-//        WebElement AvailabilityFilter= mmtPom.getElementByXpath("/html/body/div/div[2]/main/div[3]/div[1]/div[1]/div[2]/div[2]/ul/li[1]/label/div");
-//        AvailabilityFilter.click();
-//    }
 
     @Test(priority = 3)
     public void Trainfilters() {
@@ -161,14 +132,6 @@ public class Mmt_train_booking extends BaseClass{
     }
 
 
-//    @Test(priority = 4)
-//    public void TrainSelection()
-//    {
-//        ExtentTest trainSelectionTestCase = report.createTestCase("Train Selection", "To verify the selection of train is working");
-//        WebElement trainSelect=mmtPom.getElementByXpath("(//div[@class='Cards_cardSection__wZahV'])[1]");
-//        trainSelect.click();
-//    }
-
 
     @Test(priority = 4)
     public void TrainSelection() {
@@ -187,16 +150,6 @@ public class Mmt_train_booking extends BaseClass{
         }
     }
 
-
-
-//    @Test(priority = 5)
-//    public void TrainRefundSelection()
-//    {
-//        ExtentTest trainRefundTestCase = report.createTestCase("Train Refund", "To verify the refund selection of train is working");
-//        WebElement refund= mmtPom.getElementByXpath("/html/body/div[1]/div/div[2]/div[2]/div/section[1]/div[2]/div/div[2]/div[1]/div/label/div");
-//        refund.click();
-//        System.out.println("Refund clicked");
-//    }
 
 
     @Test(priority = 5)
@@ -219,22 +172,26 @@ public class Mmt_train_booking extends BaseClass{
     }
 
 
-    @Test(priority = 6)
-    public void AddTravellerTrain()
+    @Test(priority = 6,dataProvider = "detailz",dataProviderClass = ReadLogin.class)
+    public void AddTravellerTrain(String nameInput, String ageInput, String emailInput, String phoneInput)
     {
         ExtentTest AddTravellerTestCase = report.createTestCase("Train Traveller", "To verify the train traveller selection of a train is working");
         WebElement AddTraveller= mmtPom.getElementByXpath("/html/body/div[1]/div/div[2]/div[2]/div/section[1]/div[3]/div[2]/div/a");
         AddTraveller.click();
         WebElement TravellerName= mmtPom.getElementByXpath("//input[@id='name']");
-        TravellerName.sendKeys("Santhosh Krishnan");
+        TravellerName.sendKeys(nameInput);
         WebElement TravellerAge= mmtPom.getElementByXpath("//input[@id='age']");
-        TravellerAge.sendKeys("22");
+        TravellerAge.sendKeys(ageInput);
         WebElement GenderTrain= mmtPom.getElementByXpath("(//div[@role='button'])[5]");
         GenderTrain.click();
-        WebElement GenderMale= mmtPom.getElementByXpath("/html/body/div[6]/div/div/div/li/div[3]/div[2]/div/form/div[3]/div/ul/li[1]");
+        WebElement GenderMale= mmtPom.getElementByXpath("/html/body/div[5]/div/div/div/li/div[3]/div[2]/div/form/div[3]/div/ul/li[1]");
         GenderMale.click();
         WebElement Continue= mmtPom.getElementByXpath("//button[normalize-space()='Add']");
         Continue.click();
+        WebElement emailtrain= mmtPom.getElementByXpath("//input[@type='email']");
+        emailtrain.sendKeys(emailInput);
+        WebElement phonetrain=mmtPom.getElementByXpath("(//input[@type='text'])[2]");
+        phonetrain.sendKeys(phoneInput);
 
 
 

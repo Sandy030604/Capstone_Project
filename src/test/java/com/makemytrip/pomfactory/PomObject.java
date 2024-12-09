@@ -17,6 +17,4 @@ public class PomObject {
         WebElement driverz=driver.findElement(By.xpath(xpath));
         return driverz;
     }
-
-
 }

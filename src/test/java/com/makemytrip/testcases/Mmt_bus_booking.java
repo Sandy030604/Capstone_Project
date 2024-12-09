@@ -137,53 +137,60 @@ public class Mmt_bus_booking extends BaseClass{
             Assert.fail("Test failed due to an exception: " + e.getMessage());
         }
     }
-    @Test(priority = 5)
-    public void details()
-    {
-        ExtentTest DetailsTest = report.createTestCase("Details", "To verify the bus seat booking details process");
-        try{
-            WebElement name = mmtPom.getElementByXpath("//input[@id='fname']");
-            test.testCase(name, DetailsTest, "Name input field is present", "Name input field is not present",report);
-            name.sendKeys("Santhosh");
-            DetailsTest.log(Status.PASS, "Name entered successfully");
 
-            WebElement age = mmtPom.getElementByXpath("//input[@id='age']");
-            test.testCase(age, DetailsTest, "Age input field is present", "Age input field is not present",report);
-            age.sendKeys("24");
-            DetailsTest.log(Status.PASS, "Age entered successfully");
+@Test(priority = 5, dataProvider = "detailz",dataProviderClass = ReadLogin.class)
+public void details(String nameInput, String ageInput, String emailInput, String phoneInput) {
+    ExtentTest DetailsTest = report.createTestCase("Details", "To verify the bus seat booking details process");
+    try {
+        js.executeScript("window.scrollBy(0,400)");
 
-            WebElement gender = mmtPom.getElementByXpath("(//div[contains(@class,'male')])[1]");
-            test.testCase(gender, DetailsTest, "Gender option is present", "Gender option is not present",report);
-            test.testCaseClick(gender, DetailsTest, "Gender option clicked successfully", "Failed to click the gender option",report);
+        // Name
+        WebElement name = mmtPom.getElementByXpath("//input[@id='fname']");
+        test.testCase(name, DetailsTest, "Name input field is present", "Name input field is not present", report);
+        name.sendKeys(nameInput);
+        DetailsTest.log(Status.PASS, "Name entered successfully");
 
-            WebElement email = mmtPom.getElementByXpath("//input[@type='email']");
-            test.testCase(email, DetailsTest, "Email input field is present", "Email input field is not present",report);
-            email.sendKeys("santhoshs8483@gmail.com");
-            DetailsTest.log(Status.PASS, "Email entered successfully");
+        // Age
+        WebElement age = mmtPom.getElementByXpath("//input[@id='age']");
+        test.testCase(age, DetailsTest, "Age input field is present", "Age input field is not present", report);
+        age.sendKeys(ageInput);
+        DetailsTest.log(Status.PASS, "Age entered successfully");
 
-            WebElement phoneNo = mmtPom.getElementByXpath("//input[@id='mobileNumber']");
-            test.testCase(phoneNo, DetailsTest, "Phone number input field is present", "Phone number input field is not present",report);
-            phoneNo.sendKeys("7550022233");
-            DetailsTest.log(Status.PASS, "Phone number entered successfully");
+        // Gender (Assuming Male is default or fixed)
+        WebElement gender = mmtPom.getElementByXpath("(//div[contains(@class,'male')])[1]");
+        test.testCase(gender, DetailsTest, "Gender option is present", "Gender option is not present", report);
+        test.testCaseClick(gender, DetailsTest, "Gender option clicked successfully", "Failed to click the gender option", report);
 
-            System.out.println("Number Entered");
-            js.executeScript("window.scrollBy(0,500)");
+        // Email
+        WebElement email = mmtPom.getElementByXpath("//input[@type='email']");
+        test.testCase(email, DetailsTest, "Email input field is present", "Email input field is not present", report);
+        email.sendKeys(emailInput);
+        DetailsTest.log(Status.PASS, "Email entered successfully");
 
-            WebElement tripAssured = mmtPom.getElementByXpath("/html/body/div/div[4]/div/section[1]/div[4]/div/div[3]/div[2]/span[1]");
-            test.testCase(tripAssured, DetailsTest, "Trip assured checkbox is present", "Trip assured checkbox is not present",report);
-            test.testCaseClick(tripAssured, DetailsTest, "Trip assured checkbox clicked successfully", "Failed to click the trip assured checkbox",report);
-        }
-        catch (Exception e) {
-            DetailsTest.log(Status.FAIL, "An exception occurred: " + e.getMessage());
-            Assert.fail("Test failed due to an exception: " + e.getMessage());
-        }
+        // Phone Number
+        WebElement phoneNo = mmtPom.getElementByXpath("//input[@id='mobileNumber']");
+        test.testCase(phoneNo, DetailsTest, "Phone number input field is present", "Phone number input field is not present", report);
+        phoneNo.sendKeys(phoneInput);
+        DetailsTest.log(Status.PASS, "Phone number entered successfully");
+
+        // Additional actions (if any)
+        js.executeScript("window.scrollBy(0,500)");
+        WebElement tripAssured = mmtPom.getElementByXpath("/html/body/div/div[3]/div/section[1]/div[4]/div/div[3]/div[2]/span[1]");
+        test.testCase(tripAssured, DetailsTest, "Trip assured checkbox is present", "Trip assured checkbox is not present", report);
+        test.testCaseClick(tripAssured, DetailsTest, "Trip assured checkbox clicked successfully", "Failed to click the trip assured checkbox", report);
+
+    } catch (Exception e) {
+        DetailsTest.log(Status.FAIL, "An exception occurred: " + e.getMessage());
+        Assert.fail("Test failed due to an exception: " + e.getMessage());
     }
+}
+
     @Test(priority = 6)
     public void payment()
     {
         ExtentTest PaymentTest = report.createTestCase("Payment", "To verify the bus seat booking payment process");
         try{
-            WebElement paymentCont = mmtPom.getElementByXpath("/html/body/div/div[4]/div/section[2]/div[2]/div[2]/div[2]");
+            WebElement paymentCont = mmtPom.getElementByXpath("/html/body/div/div[3]/div/section[2]/div[2]/div[2]/div[2]");
             test.testCase(paymentCont, PaymentTest, "Payment continue button is present", "Payment continue button is not present",report);
             test.testCaseClick(paymentCont, PaymentTest, "Payment continue button clicked successfully", "Failed to click the payment continue button",report);
 
